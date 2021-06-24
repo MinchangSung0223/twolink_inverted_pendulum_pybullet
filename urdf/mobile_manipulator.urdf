@@ -16,14 +16,6 @@
     </inertial>
   </link>
 
-  <joint name="slider_to_cart" type="prismatic">
-    <axis xyz="1 0 0"/>
-    <origin xyz="0.0 0.0 0.1"/>
-    <parent link="slideBar"/>
-    <child link="body"/>
-    <limit effort="1000.0" lower="-7.5" upper="7.5" velocity="5"/>
-  </joint>
-  
   
     <link name="body">
     <visual>
@@ -81,26 +73,12 @@
       <origin xyz="0 0 0.125"/>
     </collision>
     <inertial>
-         <origin xyz="0 0 0.25"/>
-      <mass value="1"/>
+         <origin xyz="0 0 0.125"/>
+      <mass value="0"/>
       <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
     </inertial>
     </link>
-  <joint name="body_to_FTseneor" type="fixed">
-    <axis xyz="0 0 1"/>
-    <origin xyz="0.2 0 0.05" rpy="0 0 0"/>
-    <parent link="body"/>
-    <child link="FTSensor"/>
     
-  </joint>
-
-  <joint name="joint1" type="fixed">
-    <axis xyz="0 1 0"/>
-    <origin xyz="0.0 0 0.0" rpy="0 0 0"/>
-    <parent link="FTSensor"/>
-    <child link="link1"/>
-    
-  </joint>
 
     <link name="link2">
     <visual>
@@ -119,18 +97,12 @@
       <origin xyz="0 0 0.25"/>
     </collision>
     <inertial>
-      <mass value="1"/>
+      <mass value="2"/>
      <origin xyz="0 0 0.25"/>
       <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
     </inertial>
     </link>
-      <joint name="joint2" type="continuous">
-    <axis xyz="0 1 0"/>
-    <origin xyz="0.0 0.0 0.25" rpy="0 0 0"/>
-    <parent link="link1"/>
-    <child link="link2"/>
-  </joint>
-  
+      
   
       <link name="link3">
     <visual>
@@ -149,18 +121,12 @@
       <origin xyz="0 0 0.25"/>
     </collision>
     <inertial>
-      <mass value="1"/>
+      <mass value="2"/>
      <origin xyz="0 0 0.25"/>
       <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
     </inertial>
     </link>
-      <joint name="joint3" type="continuous">
-    <axis xyz="0 1 0"/>
-    <origin xyz="0.0 0.0 0.5" rpy="0 0 0"/>
-    <parent link="link2"/>
-    <child link="link3"/>
-  </joint>
-  
+
   
   <link name="EEF">
     <visual>
@@ -173,8 +139,45 @@
       </material>
     </visual>
   </link>
+    <joint name="slider_to_cart" type="prismatic">
+    <axis xyz="1 0 0"/>
+    <origin xyz="0.0 0.0 0.1"/>
+    <parent link="slideBar"/>
+    <child link="body"/>
+    <limit effort="1000.0" lower="-7.5" upper="7.5" velocity="5"/>
+  </joint>
+  
+  <joint name="body_to_FTseneor" type="fixed">
+    <axis xyz="0 0 1"/>
+    <origin xyz="0.2 0 0.05" rpy="0 0 0"/>
+    <parent link="body"/>
+    <child link="FTSensor"/>
+    
+  </joint>
 
-     <joint name="eef_joint" type="continuous">
+  <joint name="joint1" type="fixed">
+    <axis xyz="0 1 0"/>
+    <origin xyz="0.0 0 0.0" rpy="0 0 0"/>
+    <parent link="FTSensor"/>
+    <child link="link1"/>
+    
+  </joint>
+
+      <joint name="joint2" type="continuous">
+    <axis xyz="0 1 0"/>
+    <origin xyz="0.0 0.0 0.25" rpy="0 0 0"/>
+    <parent link="link1"/>
+    <child link="link2"/>
+  </joint>
+  
+      <joint name="joint3" type="continuous">
+    <axis xyz="0 1 0"/>
+    <origin xyz="0.0 0.0 0.5" rpy="0 0 0"/>
+    <parent link="link2"/>
+    <child link="link3"/>
+  </joint>
+  
+     <joint name="eef_joint" type="fixed">
     <axis xyz="0 1 0"/>
     <origin xyz="0.0 0.0 0.5" rpy="0 0 0"/>
     <parent link="link3"/>
